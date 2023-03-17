@@ -12,9 +12,9 @@ export default function App() {
   return (
     <div>
         <Button
-        onClick={() => handleClick(count)}
-        variant="contained"
-        color="primary"
+           onClick={() => handleClick(count)}
+           variant="contained"
+           color="primary"
         >
             {count}
         </Button>
