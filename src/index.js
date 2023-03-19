@@ -1,20 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import Form from './form';
 import Button from './button';
+import App from './app';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <React.StrictMode>
         <>
-            <Form />
-            <Button />
+            <App />
         </ >
     </React.StrictMode>
 );
 
 /*
-import App from './app';
-    <App />
+            <User />
+            <Button />
 "proxy": "http://localhost:5000",
 */
