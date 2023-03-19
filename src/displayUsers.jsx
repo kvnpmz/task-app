@@ -1,41 +1,84 @@
+// Import the useState hook from the React library
 import { useState } from 'react';
+
+// Import the axios library for making HTTP requests
 import axios from 'axios';
-import Button from '@mui/material/Button'; // Import Button component from MUI library
 
+// Import UI components from the Material-UI library
+import Button from '@mui/material/Button';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+
+// Define the DisplayUsers component as the default export
 export default function DisplayUsers() {
+
+    // Define a state variable for storing user data
     const [userData, setUserData] = useState(null);
+    // initialize showTable to false
+    const [showTable, setShowTable] = useState(false);
 
+    // Define a function to handle button click events
     const handleButtonClick = async () => {
-    try {
-        const response = await axios.get('/get_users');
-        console.log('Response:', response.data); // Add console log to view response data
-        setUserData(response.data);
-    } catch (error) {
-        console.error(error);
-    }
+        // toggle showTable when the button is clicked
+        setShowTable((prevShowTable) => !prevShowTable);
+        if (!showTable) {
+            // only fetch user data if showTable was false before toggling
+            try {
+                // Make a GET request to the '/get_users' endpoint
+                const response = await axios.get('/get_users');
+                // Log the response data to the console
+                console.log('Response:', response.data);
+                // Update the user data state variable with the response data
+                setUserData(response.data);
+            }
+            catch (error) {
+                // Log any errors to the console
+                console.error(error);
+            }
+            }
     };
-
+      
+    // Render the UI elements for the DisplayUsers component
     return (
         <>
+            {/* Render a button with an onClick handler */}
             <Button
                 type="submit"
                 variant="contained"
                 color="primary"
                 onClick={handleButtonClick}
+                style={{ marginBottom: '20px' }}
             >
-                Get User Data
+                {showTable ? 'Hide User Data' : 'Get User Data'}
             </Button>
-            {userData && (
-                <div>
-                    {userData.map(user => (
-                        <div key={user.id}>
-                            <p>Email: {user.email}</p>
-                            <p>Username: {user.username}</p>
-                        </div>
-                ))}
-                </div>
+
+            {/* Render the table only if showTable is true */}
+            {showTable && userData && (
+                <TableContainer component={Paper}>
+                    <Table>
+                        <TableHead>
+                            <TableRow>
+                                <TableCell>Email</TableCell>
+                                <TableCell>Username</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {/* Map over the user data and render a row for each user */}
+                            {userData.map((user) => (
+                                <TableRow key={user.id}>
+                                    <TableCell>{user.email}</TableCell>
+                                        <TableCell>{user.username}</TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
             )}
-        </ >
+        </>
     );
 }
-

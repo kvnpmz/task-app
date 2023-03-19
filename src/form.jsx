@@ -39,34 +39,43 @@ export default function Form() { // Define a functional component called Form
 
     return (
         <>
-            <form onSubmit={handleSubmit}>
-                <TextField
-                    id="name"
-                    label="Name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    required
-                    fullWidth
-                    margin="normal"
-                />
-                <TextField
-                    id="email"
-                    label="Email"
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                    fullWidth
-                    margin="normal"
-                />
-                <Button
-                    type="submit"
-                    variant="contained"
-                    color="primary"
-                >
-                   Submit
+            {/* This is a form that will call the handleSubmit function when submitted */}
+            <form onSubmit={handleSubmit} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    {/* This is a text field input for the user's name */}
+                    <TextField
+                        id="name"
+                        label="Name"
+                        value={name} // This is a value prop that sets the current value of the text field to the `name` variable
+                        onChange={(e) => setName(e.target.value)} // This is an onChange prop that updates the `name` variable whenever the user types into the text field
+                        required // This is a required prop that indicates that the user must enter a value before submitting the form
+                        fullWidth // This is a fullWidth prop that makes the text field span the full width of its container
+                        margin="normal" // This is a margin prop that sets the margin around the text field to "normal"
+                        sx={{ mb: 2 }}
+                    />
+                    {/* This is a text field input for the user's email */}
+                    <TextField
+                        id="email"
+                        label="Email"
+                        type="email" // This is a type prop that sets the input type to "email"
+                        value={email} // This is a value prop that sets the current value of the text field to the `email` variable
+                        onChange={(e) => setEmail(e.target.value)} // This is an onChange prop that updates the `email` variable whenever the user types into the text field
+                        required // This is a required prop that indicates that the user must enter a value before submitting the form
+                        fullWidth // This is a fullWidth prop that makes the text field span the full width of its container
+                        margin="normal" // This is a margin prop that sets the margin around the text field to "normal"
+                        sx={{ mb: 2 }}
+                    />
+                    {/* This is a submit button for the form */}
+                    <Button
+                        type="submit" // This is a type prop that sets the button type to "submit"
+                        variant="contained" // This is a variant prop that sets the button style to "contained"
+                        color="primary" // This is a color prop that sets the button color to "primary"
+                        sx={{ alignSelf: 'flex-end' }}
+                    >
+                    {/* This is the text displayed on the button */}
+                        Submit
                 </Button>
             </form>
-        </ >
+        </>
     );
 }
+
