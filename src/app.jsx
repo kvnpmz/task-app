@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Grid, Paper, Typography } from '@mui/material/';
 import Form from './form';
+import DisplayUsers from './displayUsers';
 
 export default function App() {
     return (
@@ -15,7 +16,7 @@ export default function App() {
             </Grid>
             <Grid item xs={12} sm={6} md={8}>
                 <Paper>
-                    <h1>Table</h1> {/* Table for displaying existing items */}
+                    <DisplayUsers /> {/* Table for displaying existing items */}
                 </Paper>
             </Grid>
         </Grid>

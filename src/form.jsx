@@ -39,32 +39,33 @@ export default function Form() { // Define a functional component called Form
 
     return (
         <>
-            <form onSubmit={handleSubmit}> {/* Render a form with an onSubmit event listener that calls the handleSubmit function */}
-                <label htmlFor="name"> {/* Render a label for the 'name' input field */}
-                    Name:
-                </label>
-                <input
-                    type="text"
+            <form onSubmit={handleSubmit}>
+                <TextField
                     id="name"
-                    name="name"
-                    value={name} // Bind the 'name' state variable to the input field value
-                    onChange={(e) => setName(e.target.value)} // Bind the 'setName' state setter function to the input field onChange event
-                    required // Make the input field required
+                    label="Name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    required
+                    fullWidth
+                    margin="normal"
                 />
-                <br />
-                <label htmlFor="email"> {/* Render a label for the 'email' input field */}
-                    Email:
-                </label>
-                <input
-                    type="email"
+                <TextField
                     id="email"
-                    name="email"
-                    value={email} // Bind the 'email' state variable to the input field value
-                    onChange={(e) => setEmail(e.target.value)} // Bind the 'setEmail' state setter function to the input field onChange event
-                    required // Make the input field required
+                    label="Email"
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    fullWidth
+                    margin="normal"
                 />
-                <br />
-                <button type="submit">Submit</button> {/* Render a button to submit the form */}
+                <Button
+                    type="submit"
+                    variant="contained"
+                    color="primary"
+                >
+                   Submit
+                </Button>
             </form>
         </ >
     );

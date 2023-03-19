@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import axios from 'axios';
+import Button from '@mui/material/Button'; // Import Button component from MUI library
 
-export default function Button() {
+export default function DisplayUsers() {
     const [userData, setUserData] = useState(null);
 
     const handleButtonClick = async () => {
@@ -16,9 +17,14 @@ export default function Button() {
 
     return (
         <>
-            <button onClick={handleButtonClick}>
+            <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                onClick={handleButtonClick}
+            >
                 Get User Data
-            </button>
+            </Button>
             {userData && (
                 <div>
                     {userData.map(user => (
