@@ -14,6 +14,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
+import DialogBox from './dialogBox';
 // Define the DisplayUsers component as the default export
 export default function DisplayUsers() {
 
@@ -21,6 +22,8 @@ export default function DisplayUsers() {
     const [userData, setUserData] = useState(null);
     // initialize showTable to false
     const [showTable, setShowTable] = useState(false);
+    // initialize editingId to null
+    const [editingId, setEditingId] = useState(null);
 
     // Define a function to handle button click events
     const handleButtonClick = async () => {
@@ -42,6 +45,13 @@ export default function DisplayUsers() {
             }
             }
     };
+    //Define a function to handle edit button click 
+    const handleEdit = (id) => {
+        setEditingId(id);
+        console.log(editingId);
+    }
+
+
       
     // Render the UI elements for the DisplayUsers component
     return (
@@ -52,7 +62,8 @@ export default function DisplayUsers() {
                 variant="contained"
                 color="primary"
                 onClick={handleButtonClick}
-                style={{ marginBottom: '20px' }}
+                fullWidth
+                sx={{ marginBottom: '20px' }}
             >
                 {showTable ? 'Hide User Data' : 'Get User Data'}
             </Button>
@@ -63,16 +74,25 @@ export default function DisplayUsers() {
                     <Table>
                         <TableHead>
                             <TableRow>
+                                <TableCell>ID</TableCell>
                                 <TableCell>Email</TableCell>
                                 <TableCell>Username</TableCell>
+                                <TableCell>Actions</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
                             {/* Map over the user data and render a row for each user */}
                             {userData.map((user) => (
                                 <TableRow key={user.id}>
+                                    <TableCell>{user.id}</TableCell>
                                     <TableCell>{user.email}</TableCell>
-                                        <TableCell>{user.username}</TableCell>
+                                    <TableCell>{user.username}</TableCell>
+                                    <TableCell>
+                                        <DialogBox
+                                            userId={user.id}
+                                            userName={user.username}
+                                            userEmail={user.email} />
+                                    </TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>

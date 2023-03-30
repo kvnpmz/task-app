@@ -69,6 +69,7 @@ export default function Form() { // Define a functional component called Form
                         type="submit" // This is a type prop that sets the button type to "submit"
                         variant="contained" // This is a variant prop that sets the button style to "contained"
                         color="primary" // This is a color prop that sets the button color to "primary"
+                        fullWidth
                         sx={{ alignSelf: 'flex-end' }}
                     >
                     {/* This is the text displayed on the button */}
