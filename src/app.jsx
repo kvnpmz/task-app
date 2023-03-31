@@ -1,78 +1,72 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import {
-    Table,
-    TableBody,
-    TableCell,
-    TableContainer,
-    TableHead,
-    TableRow,
-} from "@mui/material";
-import {
-    Grid,
-    Container,
-    Paper,
     Typography,
+    Container,
+    Grid,
+    Paper,
     TextField,
     Button,
+    TableContainer,
+    Table,
+    TableHead,
+    TableRow,
+    TableCell,
+    TableBody,
 } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "./theme";
 
 export default function App() {
-    const [users, setUsers] = useState([]);
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
+    const [products, setProducts] = useState([]);
+    const [product, setProduct] = useState("");
+    const [quantity, setQuantity] = useState("");
 
-    // fetch all users from the Flask backend on component mount
     useEffect(() => {
         axios
-            .get("/users")
-            .then((response) => setUsers(response.data))
+            .get("/products")
+            .then((response) => setProducts(response.data))
             .catch((error) => console.log(error));
     }, []);
 
-    // handle form submission for creating a new user
-    const handleAddUser = (event) => {
+    const handleAddProduct = (event) => {
         event.preventDefault();
         axios
-            .post("/users", { name, email })
+            .post("/products", { product, quantity })
             .then((response) => {
-                setUsers([...users, response.data]);
-                setName("");
-                setEmail("");
+                setProducts([...products, response.data]);
+                setProduct("");
+                setQuantity("");
             })
             .catch((error) => console.log(error));
     };
 
-    // handle form submission for editing an existing user
-    const handleEditUser = (event, id) => {
+    const handleEditProduct = (event, id) => {
         event.preventDefault();
         const formData = new FormData(event.target);
-        const newName = formData.get("newName");
-        const newEmail = formData.get("newEmail");
+        const newProduct = formData.get("newProduct");
+        const newQuantity = formData.get("newQuantity");
 
         axios
-            .put(`/users/${id}`, { name: newName, email: newEmail })
+            .put(`/products/${id}`, { product: newProduct, quantity: newQuantity })
             .then((response) => {
-                const updatedUsers = users.map((user) => {
-                    if (user.id === id) {
+                const updatedProducts = products.map((product) => {
+                    if (product.id === id) {
                         return response.data;
                     }
-                    return user;
+                    return product;
                 });
-                setUsers(updatedUsers);
+                setProducts(updatedProducts);
             })
             .catch((error) => console.log(error));
     };
 
-    // handle click event for deleting an existing user
-    const handleDeleteUser = (id) => {
+    const handleDeleteProduct = (id) => {
         axios
-            .delete(`/users/${id}`)
+            .delete(`/products/${id}`)
             .then((response) => {
-                const updatedUsers = users.filter((user) => user.id !== id);
-                setUsers(updatedUsers);
+                const updatedProducts = products.filter((product) => product.id !== id);
+                setProducts(updatedProducts);
             })
             .catch((error) => console.log(error));
     };
@@ -91,18 +85,18 @@ export default function App() {
                     <Grid item xs={12} md={6}>
                         <Paper>
                             <Typography variant="h2" align="center">
-                                Add user
+                                Add product
                             </Typography>
-                            <form onSubmit={handleAddUser}>
+                            <form onSubmit={handleAddProduct}>
                                 <Grid container spacing={2} alignItems="center">
                                     <Grid item xs={12} md={6}>
                                         <TextField
                                             fullWidth
                                             variant="outlined"
-                                            label="Name"
-                                            value={name}
+                                            label="Product"
+                                            value={product}
                                             onChange={(event) =>
-                                                setName(event.target.value)
+                                                setProduct(event.target.value)
                                             }
                                         />
                                     </Grid>
@@ -110,10 +104,10 @@ export default function App() {
                                         <TextField
                                             fullWidth
                                             variant="outlined"
-                                            label="Email"
-                                            value={email}
+                                            label="Quantity"
+                                            value={quantity}
                                             onChange={(event) =>
-                                                setEmail(event.target.value)
+                                                setQuantity(event.target.value)
                                             }
                                         />
                                     </Grid>
@@ -133,97 +127,98 @@ export default function App() {
                     </Grid>
                     <Grid item xs={12} md={6}>
                         <Paper>
-                            <Typography variant="h2" align="center">
-                                Users list
-                            </Typography>
-                            <TableContainer component={Paper}>
-                                <Table>
-                                    <TableHead>
-                                        <TableRow>
-                                            <TableCell>Name</TableCell>
-                                            <TableCell>Email</TableCell>
-                                            <TableCell>Edit</TableCell>
-                                            <TableCell>Delete</TableCell>
-                                        </TableRow>
-                                    </TableHead>
-                                    <TableBody>
-                                        {users.map((user) => (
-                                            <TableRow key={user.id}>
-                                                <TableCell>
-                                                    <TextField
-                                                        fullWidth
-                                                        variant="outlined"
-                                                        label="Name"
-                                                        name="newName"
-                                                        defaultValue={user.name}
-                                                    />
-                                                </TableCell>
-                                                <TableCell>
-                                                    <TextField
-                                                        fullWidth
-                                                        variant="outlined"
-                                                        label="Email"
-                                                        name="newEmail"
-                                                        defaultValue={
-                                                            user.email
-                                                        }
-                                                    />
-                                                </TableCell>
-                                                <TableCell>
-                                                    <form
-                                                        onSubmit={(event) =>
-                                                            handleEditUser(
-                                                                event,
-                                                                user.id
-                                                            )
-                                                        }
+                        <Typography variant="h2" align="center">
+                            Products list
+                        </Typography>
+                        <TableContainer component={Paper}>
+                            <Table>
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell>Product</TableCell>
+                                        <TableCell>Quantity</TableCell>
+                                        <TableCell>Edit</TableCell>
+                                        <TableCell>Delete</TableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    {products.map((product) => (
+                                        <TableRow key={product.id}>
+                                            <TableCell>
+                                                <TextField
+                                                    fullWidth
+                                                    variant="outlined"
+                                                    label="Product"
+                                                    name="newProduct"
+                                                    defaultValue={product.product}
+                                                />
+                                            </TableCell>
+                                            <TableCell>
+                                                <TextField
+                                                    fullWidth
+                                                    variant="outlined"
+                                                    label="Quantity"
+                                                    name="newQuantity"
+                                                    defaultValue={
+                                                        product.quantity
+                                                    }
+                                                />
+                                            </TableCell>
+                                            <TableCell>
+                                                <form
+                                                    onSubmit={(event) =>
+                                                        handleEditProduct(
+                                                            event,
+                                                            product.id
+                                                        )
+                                                    }
+                                                >
+                                                    <Grid
+                                                        container
+                                                        spacing={2}
+                                                        alignItems="center"
                                                     >
-                                                        <Grid
-                                                            container
-                                                            spacing={2}
-                                                            alignItems="center"
-                                                        >
-                                                            <Grid item xs={12}>
-                                                                <Button
-                                                                    type="submit"
-                                                                    variant="contained"
-                                                                    color="primary"
-                                                                >
-                                                                    Save
-                                                                </Button>
-                                                            </Grid>
+                                                        <Grid item xs={12}>
+                                                            <Button
+                                                                type="submit"
+                                                                variant="contained"
+                                                                color="primary"
+                                                            >
+                                                                Save
+                                                            </Button>
                                                         </Grid>
-                                                    </form>
-                                                </TableCell>
-                                                <TableCell>
-                                                    <Button
-                                                        onClick={() =>
-                                                            handleDeleteUser(
-                                                                user.id
-                                                            )
-                                                        }
-                                                        variant="contained"
-                                                        color="secondary"
-                                                    >
-                                                        Delete
-                                                    </Button>
-                                                </TableCell>
-                                            </TableRow>
-                                        ))}
-                                    </TableBody>
-                                </Table>
-                            </TableContainer>
-                        </Paper>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Paper>
-                            <Typography variant="subtitle1" align="center">
-                                Kevin's React App &copy; 2023
-                            </Typography>
-                        </Paper>
-                    </Grid>
+                                                    </Grid>
+                                                </form>
+                                            </TableCell>
+                                            <TableCell>
+                                                <Button
+                                                    onClick={() =>
+                                                        handleDeleteProduct(
+                                                            product.id
+                                                        )
+                                                    }
+                                                    variant="contained"
+                                                    color="secondary"
+                                                >
+                                                    Delete
+                                                </Button>
+                                            </TableCell>
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </TableContainer>
+                    </Paper>
                 </Grid>
-            </Container>
-        </ThemeProvider>
-    );
+                <Grid item xs={12}>
+                    <Paper>
+                        <Typography variant="subtitle1" align="center">
+                            Kevin's React App &copy; 2023
+                        </Typography>
+                    </Paper>
+                </Grid>
+            </Grid>
+        </Container>
+    </ThemeProvider>
+);
+
 }
