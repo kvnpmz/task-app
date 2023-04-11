@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Postform from './postform';
 import Postlist from './postlist';
+import Logout from './logout';
 
 const Blog = () => {
   const [posts, setPosts] = useState([]);
@@ -72,6 +73,7 @@ const Blog = () => {
           <button onClick={() => setSelectedPost(null)}>Cancel</button>
         </div>
       )}
+    <Logout />
     </div>
   );
 };
