@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from '@mui/material';
 
 const Postlist = ({ posts, onEdit, onDelete }) => {
 
@@ -10,8 +11,8 @@ const Postlist = ({ posts, onEdit, onDelete }) => {
           <h2>{post.title}</h2>
           <p>{post.body}</p>
           <p>Author: {post.username}</p>
-          <button onClick={() => onEdit(post)}>Edit</button>
-          <button onClick={() => onDelete(post.id)}>Delete</button>
+          <Button variant="contained" color="secondary" onClick={() => onEdit(post)}>Edit</Button>
+          <Button variant="contained" color="primary" onClick={() => onDelete(post.id)}>Delete</Button>
         </li>
       ))}
     </ul>
