@@ -1,4 +1,4 @@
-import { Grid, Typography } from "@mui/material";
+import { Grid, Paper, Typography } from "@mui/material";
 import Postlist from "./postlist";
 
 export default function PostlistDisplay(props) {
@@ -8,21 +8,22 @@ export default function PostlistDisplay(props) {
                 item
                 xs={8}
                 sx={{
-                    backgroundColor: "#f5f5f5",
+                    backgroundColor: "#e0e0e0",
                     height: "100%",
                     overflow: "auto",
+                    p: "1.25rem 0.25rem 0rem",
                 }}
             >
-                <Typography variant="h2" sx={{ fontSize: "2rem" }}>
-                    List Posts
-                </Typography>
-                {props.showPostList && (
-                    <Postlist
-                        posts={props.posts}
-                        onEdit={props.setSelectedPost}
-                        onDelete={props.deletePost}
-                    />
-                )}
+                    <Typography variant="h2" sx={{ fontSize: "1.5rem", p:"0.4rem" }}>
+                        Orders List
+                    </Typography>
+                    {props.showPostList && (
+                        <Postlist
+                            posts={props.posts}
+                            onEdit={props.setSelectedPost}
+                            onDelete={props.deletePost}
+                        />
+                    )}
             </Grid>
         </>
     );

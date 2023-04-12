@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { TextField, Button } from '@mui/material';
+import { useState } from 'react';
+import { Box, TextField, Button } from '@mui/material';
 
 export default function Postform({ onSubmit, initialValues }) {
   const [title, setTitle] = useState(initialValues.title || '');
@@ -12,24 +12,32 @@ export default function Postform({ onSubmit, initialValues }) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div>
+<Box
+sx={{ m:"1rem"}}
+>
         <TextField
-          label="Title"
+          label="Item"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
+variant="filled"
         />
-      </div>
-      <div>
+</Box><Box
+sx={{ m:"1rem"}}
+>
+
         <TextField
-          label="Body"
+          label="Status"
           multiline
           value={body}
+variant="filled"
           onChange={(e) => setBody(e.target.value)}
         />
-      </div>
-      <Button type="submit" variant="contained" color="primary">
-        {initialValues.id ? 'Update' : 'Create'} Post
+</Box>
+<Box sx={{display:"flex", justifyContent: "center" }}>
+      <Button type="submit" variant="contained" sx={{bgcolor: "primary.dark", mb:"1rem", width: "10rem"}}>
+        {initialValues.id ? 'Update' : 'Create'} Order
       </Button>
+</Box>
     </form>
   );
 };

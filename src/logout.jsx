@@ -20,8 +20,8 @@ function LogoutButton() {
         <div>
             <Button
                 variant="contained"
-                color="secondary"
                 onClick={handleLogout}
+                sx={{bgcolor:"#b0b0e0", color: "#000000"}}
             >
                 Logout
             </Button>

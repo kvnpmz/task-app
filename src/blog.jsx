@@ -66,13 +66,13 @@ export default function Blog() {
             <Grid
                 container
                 direction="column"
-                sx={{ height: "100vh", padding: 0 }}
+                sx={{ height: "100vh", }}
             >
                 <Header />
                 <Grid
                     item
                     container
-                    sx={{ flexGrow: 1, height: "calc(100vh - 64px)" }}
+                    sx={{ display: 'flex', height: "calc(100vh - 64px)" }}
                 >
                     <CreatePostDisplay createNewPost={createNewPost} />
                     <PostlistDisplay

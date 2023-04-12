@@ -1,4 +1,4 @@
-import { Grid, Typography } from "@mui/material";
+import { Grid, Paper, Typography } from "@mui/material";
 import Postform from "./postform";
 
 export default function CreatePostDisplay(props) {
@@ -7,12 +7,16 @@ export default function CreatePostDisplay(props) {
             <Grid
                 item
                 xs={2}
-                sx={{ backgroundColor: "#e0e0e0", height: "100%" }}
+                sx={{ backgroundColor: "#e0e0e0", height: "100%"}}
             >
-                <Typography variant="h2" sx={{ fontSize: "2rem" }}>
-                    Create Posts
-                </Typography>
-                <Postform onSubmit={props.createNewPost} />
+                <Paper
+sx={{ height: "84vh", m:"1.25rem 0.4rem"}}>
+
+                    <Typography variant="h2" sx={{ fontSize: "1.5rem", p:"1rem", mb:"1rem" }}>
+                        Create Orders
+                    </Typography>
+                    <Postform onSubmit={props.createNewPost} />
+                </Paper>
             </Grid>
         </>
     );
